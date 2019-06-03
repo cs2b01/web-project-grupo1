@@ -135,14 +135,20 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="735" />
 =======
+=======
+>>>>>>> eea76936e7d494a7fc2215ba2b6be49e429b2d1c
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1383" />
     <option name="height" value="737" />
+<<<<<<< HEAD
+>>>>>>> eea76936e7d494a7fc2215ba2b6be49e429b2d1c
+=======
 >>>>>>> eea76936e7d494a7fc2215ba2b6be49e429b2d1c
   </component>
   <component name="ProjectView">
@@ -197,7 +203,12 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="C:/DBP/TEMPLATES_SHOP_PAGE/Fluffyknives-master" />
+=======
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> eea76936e7d494a7fc2215ba2b6be49e429b2d1c
 =======
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
