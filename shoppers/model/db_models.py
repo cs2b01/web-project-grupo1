@@ -14,7 +14,7 @@ class User(connector.Manager.Base):
 	phone = Column(String(20))
 
 	def __repr__(self):
-		return f"User('{self.username}', '{self.email}')"
+		return f"User('{self.name}', '{self.mail}')"
 
 
 class Item(connector.Manager.Base):
