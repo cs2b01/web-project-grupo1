@@ -17,7 +17,7 @@ def index():
 
 @app.route('/static/<content>')
 def static_content(content):
-    return render_template
+    return render_template(content)
 
 
 @app.route('/users', methods = ['GET'])
@@ -30,18 +30,18 @@ def get_users():
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 
 
-@app.route("/users", methods=["GET", "POST"])
+@app.route("/signup", methods=["POST"])
 def signup():
-    c =  json.loads(request.form['values'])
-    new_user = db_models.User(
+    c = json.loads(request.form['values'])
+    user = db_models.User(
         username=c['username'],
         email=c['email'],
         password=c['password'],
         adress=c['adress'],
-        phone =c['phone']
+        phone=c['phone']
     )
     session = db.getSession(engine)
-    session.add(new_user)
+    session.add(user)
     session.commit()
     return 'Created User'
 
@@ -60,7 +60,6 @@ def authenticatelogin():
                                 ).one()
         message = {'message': 'Authorized'}
         return Response(message, status=200, mimetype='application/json')
-
     except Exception:
         message = {'message': 'Unauthorized'}
         return Response(message, status=401, mimetype='application/json')
