@@ -13,20 +13,29 @@ class User(connector.Manager.Base):
 	address = Column(String(200))
 	phone = Column(String(20))
 
-	def __repr__(self):
-		return f"User('{self.name}', '{self.mail}')"
+
+class Shop(connector.Manager.Base):
+	__tablename__ = 'Shop'
+
+	id = Column(Integer, primary_key=True)
+	country = Column(String(30))
+	city= Column(String(30))
+	name = Column(String(30), ForeignKey(User.id))
+	fullname = Column(String(30), ForeignKey(User.id))
+	address = Column(String(200), ForeignKey(User.id))
+	phone = Column(String(20), ForeignKey(User.id))
+	comment = Column(String(30))
+	name_r = relationship(User, foreign_keys=[name])
+	fullname_r = relationship(User, foreign_keys=[fullname])
+	address_r = relationship(User, foreign_keys=[address])
+	phone_r = relationship(User, foreign_keys=[phone])
 
 
-class Item(connector.Manager.Base):
-	__tablename__ = 'Item'
-
+class Products(connector.Manager.Base):
+	__tablename__ = 'Products'
 	id = Column(Integer, primary_key=True)
 	itemName = Column(String(30), unique=True, nullable=False)
 	itemMainDescription = Column(String(30))
 	itemPointsDescription = Column(String(200))
 	itemImage = Column(String(30), nullable=False)
-	itemPrice = Column(Integer, nullable=False)
-
-	def __repr__(self):
-		return f"Item('{self.itemName}')"
-
+	itemPrice = Column(float(20), nullable=False)
