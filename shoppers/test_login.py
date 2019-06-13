@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash
 import json
 from models import db_models
+
 app = Flask(__name__)
 app.secret_key = 'some_secret_key'
 
