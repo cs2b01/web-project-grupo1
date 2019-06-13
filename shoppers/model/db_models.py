@@ -10,11 +10,11 @@ class User(connector.Manager.Base):
 	username = Column(String(20), unique=True, nullable=False)
 	email = Column(String(120), unique=True, nullable=False)
 	password = Column(String(60), nullable=False)
-	adress = Column(String(200))
+	address = Column(String(200))
 	phone = Column(String(20))
 
 	def __repr__(self):
-		return f"User('{self.username}', '{self.email}')"
+		return f"User('{self.name}', '{self.mail}')"
 
 
 class Item(connector.Manager.Base):
