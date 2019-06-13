@@ -39,3 +39,4 @@ class Products(connector.Manager.Base):
 	itemPointsDescription = Column(String(200))
 	itemImage = Column(String(30), nullable=False)
 	itemPrice = Column(float(20), nullable=False)
+
