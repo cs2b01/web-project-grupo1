@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Float, String, Sequence, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from database import connector
+
+
 
 
 class User(connector.Manager.Base):
@@ -38,5 +40,5 @@ class Products(connector.Manager.Base):
 	itemMainDescription = Column(String(30))
 	itemPointsDescription = Column(String(200))
 	itemImage = Column(String(30), nullable=False)
-	itemPrice = Column(float(20), nullable=False)
+	itemPrice = Column(Float(10,2), nullable=False)
 
