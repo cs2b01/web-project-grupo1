@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <title>Login | Flask</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<<<<<<< HEAD
+
+<main class="container-homepage">
+
+    <!-- header -->
+    <header class="item-1">FakeBook</header>
+
+    <!-- description -->
+    <article class="item-2"> La mayor riqueza es tu salud </article>
+
+    <!-- form -->
+    <form id="myform" name="myform" action="{{url_for('login')}}" method="POST" class="item-3" onsubmit="return validate(); return false;">
+
+        <!-- get username -->
+        <section>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username"/>
+            <div id="username_error" class="error"></div>
+        </section>
+
+        <!-- get date of birth -->
+        <section>
+            <label for="dob">Date of birth</label>
+            <input type="date" id="dob" name="dob"/>
+            <div id="dob_error" class="error"></div>
+        </section>
+
+        <!-- get email -->
+        <section>
+            <label class="margin-top" for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="example@mail.com"/>
+            <div id="email_error" class="error"></div>
+        </section>
+
+        <!-- get gender -->
+        <section>
+            <label for="gender">Gender</label>
+            <label class="align-radio"><input type="radio" id="gender" name="gender" value="Male" checked/>Male</label>
+            <label class="align-radio"><input type="radio" name="gender" value="Female"/>Female</label>
+            <label class="align-radio"><input type="radio" name="gender" value="Other"/>Other</label>
+        </section>
+
+        <!-- submit form -->
+        <section>
+            <input class="green margin-top" type="submit" id="register" name="action" value="Register"/>
+        </section>
+    </form>
+</main>
+
+<script>
+    // validation of user data
+    var username = document.forms["myform"]["username"];
+    var dob = document.forms["myform"]["dob"];
+    var email = document.forms["myform"]["email"];
+
+    username.addEventListener("blur", validate);
+    dob.addEventListener("blur", validate);
+    email.addEventListener("blur", validate);
+
+    function validate() {
+        // datetime object of today's date and user dob
+        var datetime_dob = new Date(dob.value);
+        var temp_today = new Date();
+        var today = new Date((temp_today.getFullYear()).toString() + "-" + (temp_today.getMonth() + 1).toString() + "-" + (temp_today.getDate()).toString());
+
+        // username min length of 3
+        if (username.value.length < 3) {
+            username.style.border = "1px solid red";
+            document.getElementById("username_error").textContent = "Username must have minimum length of 3";
+            return false;
+        } else {
+            username.style.border = "none";
+            document.getElementById("username_error").textContent = "";
+        }
+
+        // date of birth must be before today's date
+        if (today.getTime() < datetime_dob.getTime()) {
+            dob.style.border = "1px solid red";
+            document.getElementById("dob_error").textContent = "Why are you from the future?!";
+            return false;
+        } else {
+            dob.style.border = "none";
+            document.getElementById("dob_error").textContent = "";
+        }
+
+        // email must contain '@' and '.com'. There must also be some space between '@' and '.com', as well as before '@'
+        if (email.value.indexOf('@') < 1 || email.value && email.value.indexOf('.com') - 1 <= email.value.indexOf('@')) {
+            email.style.border = "1px solid red";
+            document.getElementById("email_error").textContent = "Invalid email format";
+            return false;
+        } else {
+            email.style.border = "none";
+            document.getElementById("email_error").textContent = "";
+        }
+        return true;
+    }
+
+</script>
+
+=======
+    <div class="container">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-sm-6">
+                <form method="POST">
+                    <div class="form-group">
+                      <label for="username">Username : </label>
+                      <input type="text" name="uname" class="form-control" id="uname">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password : </label>
+                      <input type="password" name="passw" class="form-control" id="passw">
+                    </div>
+                    <button type="submit" class="btn form-control btn-default">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+>>>>>>> cf143c8348430857c3dd09f33be958406de0a4db
+</body>
+</html>
