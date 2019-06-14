@@ -2,14 +2,13 @@ from flask import Flask,render_template, request, session, Response, redirect
 from database import connector
 from model import db_models
 import json
-<<<<<<< HEAD
+
 from models import db_models
-=======
 
 
 db = connector.Manager()
 engine = db.createEngine()
->>>>>>> cf143c8348430857c3dd09f33be958406de0a4db
+
 
 app = Flask(__name__)
 
