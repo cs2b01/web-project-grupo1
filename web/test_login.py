@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index2.html')
+    return render_template('index.html')
 
 
 @app.route('/static/<content>')
@@ -56,7 +56,7 @@ def login_post():
                                          ).filter(db_models.User.password == password
                                                   ).one()
         message = {'message': 'HOLA', username: username}
-        return render_template("index2.html"), Response(message, status=200, mimetype='application/json')
+        return render_template("index.html"), Response(message, status=200, mimetype='application/json')
     except Exception:
         message = {'message': 'Registrate'}
         return message, render_template("signup.html")
@@ -75,7 +75,7 @@ def signup_post():
     session = db.getSession(engine)
     session.add(user)
     session.commit()
-    return render_template("index2.html")
+    return render_template("index.html")
 
 
 @app.route('/authenticate_signup',methods =["POST"])
@@ -102,6 +102,17 @@ def authenticate_signup():
         message = {'message': 'Unauthorized'}
         return Response(message, status=401, mimetype='application/json')
 
+
+@app.route('/contact_me', methods=['POST'])
+def contact_me():
+    info = json.loads(request.data)
+    username = message['username']
+    password = message['password']
+    db_session = db.getSession(engine)
+    user = db_session.query(db_models.User).filter(db_models.User.username == username
+    ).filter(db_models.User.password == password).one()
+
+    return render_template("/static/thankyou.html"), Response(message, status=200, mimetype='application/json')
 
 
 
