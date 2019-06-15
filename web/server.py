@@ -69,6 +69,60 @@ def static_content(content):
     return render_template(content)
 
 
+@app.route('/users', methods = ['POST'])
+def create_user():
+    c = json.loads(request.form['values'])
+    user = db_models.User(
+        username=c['username'],
+        name=c['name'],
+        fullname=c['fullname'],
+        password=c['password']
+    )
+    session = db.getSession(engine)
+    session.add(user)
+    session.commit()
+    return 'Created User'
+
+@app.route('/shops', methods = ['POST'])
+def create_shop():
+    c = json.loads(request.form['values'])
+    shop = db_models.Shop(
+        country=c['country'],
+        city=c['city'],
+        name=c['name'],
+        fullname=c['fullname'],
+        address=c['address'],
+        phone =c['phone'],
+        comment =c['comment']
+    )
+    db_session = db.getSession(engine)
+    db_session.add(shop)
+    db_session.commit()
+    return 'Created Shop'
+
+
+@app.route('/create_test_users', methods = ['GET'])
+def create_test_users():
+    db_session = db.getSession(engine)
+    user = db_models.User(name="Alejandro", email="albino.mamani@utec.edu.pe", password="1234", address="Av Del Pacifico 180", phone="989989406")
+    db_session.add(user)
+    db_session.commit()
+    return "Test user created!"
+
+
+@app.route('/shops', methods = ['POST'])
+def create_products():
+    c = json.loads(request.form['values'])
+    product = db_models.Products(
+        itemName=c['item_name'],
+        itemDescription=c['itemDescription'],
+        itemPrice=c['itemPrice']
+    )
+    session = db.getSession(engine)
+    session.add(product)
+    session.commit()
+    return 'Created product'
+
 
 @app.route('/users', methods = ['GET'])
 def get_users():
@@ -99,10 +153,8 @@ def login_post():
         return message, render_template("signup.html")
 
 
-
-
-@app.route('/signup', methods = ["POST"])
-def create_user():
+@app.route('/signup', methods = ['POST'])
+def sign_up():
     data = json.loads(request.data)
     username = data['username']
     email = data['email']
@@ -141,11 +193,24 @@ def authenticate_signup():
                                                            ).one()
         session['logged_user'] = user.id
         message = {'message': 'USTED YA ESTA REGISTRADO'}
-        return render_template("login.html")
+        return Response(message, status=200, mimetype='application/json'), render_template("login.html")
 
     except Exception:
         message = {'message': 'GRACIAS'}
-        return Response(status=200, mimetype='application/json')
+        return Response(message)
+
+
+@app.route('/current', methods = ["GET"])
+def current_user():
+    db_session = db.getSession(engine)
+    user = db_session.query(db_models.User).filter(
+        db_models.User.id == session['logged_user']
+        ).first()
+    return Response(json.dumps(
+            user,
+            cls=connector.AlchemyEncoder),
+            mimetype='application/json'
+        )
 
 
 if __name__ == '__main__':

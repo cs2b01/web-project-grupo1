@@ -1,4 +1,4 @@
-function getData(){
+function getDataSignup(){
         $('#fail').hide();
         $('#ok').hide()
         $('#loading').show();
@@ -25,6 +25,28 @@ function getData(){
                 $('#action').html(response['AHORA ERES PARTE DE NUESTRA COMUNIDAD']);
             },
             error: function(response){
+                if(response['status']==401){
+                    $('#loading').hide();
+                    $('#fail').show()
+                }else{
+                    $('#loading').hide();
+                    $('#ok').show()
+                }
+            }
+        });
+    }
+    function signup_authentication(){
+        $.ajax({
+            url:'/authenticate_signup',
+            type:'POST',
+            contentType: 'application/json',
+            data : message,
+            dataType:'json',
+            success: function(response){
+               $('#action').html(response['statusText']);
+            },
+            error: function(response){
+                 alert(JSON.stringify(response));
                 if(response['status']==401){
                     $('#loading').hide();
                     $('#fail').show()

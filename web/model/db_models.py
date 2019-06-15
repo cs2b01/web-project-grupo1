@@ -37,8 +37,6 @@ class Products(connector.Manager.Base):
 	__tablename__ = 'Products'
 	id = Column(Integer, primary_key=True)
 	itemName = Column(String(30), unique=True, nullable=False)
-	itemMainDescription = Column(String(30))
-	itemPointsDescription = Column(String(200))
-	itemImage = Column(String(30), nullable=False)
+	itemDescription = Column(String(30))
 	itemPrice = Column(Float(10,2), nullable=False)
 
