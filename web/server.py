@@ -19,6 +19,11 @@ def cart():
     return render_template('cart.html')
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
 @app.route('/checkout')
 def checkout():
     return render_template('checkout.html')
@@ -108,20 +113,27 @@ def login_post():
         return message, render_template("signup.html")
 
 
-@app.route("/signup", methods=["POST"])
-def signup_post():
-    c = json.loads(request.form['values'])
+
+
+@app.route('/signup', methods = ["POST"])
+def create_user():
+    data = json.loads(request.data)
+    username = data['username']
+    email = data['email']
+    password = data['password']
+    address = data['address']
+    phone = data['phone']
     user = db_models.User(
-        username=c['username'],
-        email=c['email'],
-        password=c['password'],
-        adress=c['address'],
-        phone=c['phone']
-    )
-    session = db.getSession(engine)
-    session.add(user)
-    session.commit()
-    return render_template("index2.html")
+    username = username,
+    email = email,
+    password = password,
+    address = address,
+    phone = phone)
+    db_session = db.getSession(engine)
+    db_session.add(user)
+    db_session.commit()
+    response = {'user': 'created'}
+    return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
 
 
 @app.route('/authenticate_signup',methods =["POST"])
@@ -129,9 +141,9 @@ def authenticate_signup():
     message = json.loads(request.data)
     username = message['username']
     password = message['password']
-    email = ['email'],
-    address = ['address'],
-    phone = ['phone']
+    email = message ['email'],
+    address = message['address'],
+    phone = message['phone']
     db_session = db.getSession(engine)
 
     try:
@@ -139,14 +151,15 @@ def authenticate_signup():
                                  ).filter(db_models.User.password == password
                                 ).filter(db_models.User.email == email
                                          ).filter(db_models.User.address == address
-                                                  ).filter(db_models.User.phone== phone
+                                                  ).filter(db_models.User.phone == phone
                                                            ).one()
-        message = {'message': 'Authorized'}
-        return Response(message, status=200, mimetype='application/json')
+        session['logged_user'] = user.id
+        message = {'message': 'USTED YA ESTA REGISTRADO'}
+        return render_template("login.html")
 
     except Exception:
-        message = {'message': 'Unauthorized'}
-        return Response(message, status=401, mimetype='application/json')
+        message = {'message': 'GRACIAS'}
+        return Response(status=200, mimetype='application/json')
 
 
 if __name__ == '__main__':
