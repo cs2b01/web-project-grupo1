@@ -69,20 +69,6 @@ def static_content(content):
     return render_template(content)
 
 
-@app.route('/users', methods = ['POST'])
-def create_user():
-    c = json.loads(request.form['values'])
-    user = db_models.User(
-        username=c['username'],
-        name=c['name'],
-        fullname=c['fullname'],
-        password=c['password']
-    )
-    session = db.getSession(engine)
-    session.add(user)
-    session.commit()
-    return 'Created User'
-
 @app.route('/shops', methods = ['POST'])
 def create_shop():
     c = json.loads(request.form['values'])
@@ -124,16 +110,6 @@ def create_products():
     return 'Created product'
 
 
-@app.route('/users', methods = ['GET'])
-def get_users():
-    session = db.getSession(engine)
-    dbResponse = session.query(db_models.User)
-    data = []
-    for user in dbResponse:
-        data.append(user)
-    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
-
-
 @app.route('/login', methods=['POST'])
 def login_post():
     message = json.loads(request.data)
@@ -146,8 +122,9 @@ def login_post():
                                 ).filter(db_models.User.username == username
                                          ).filter(db_models.User.password == password
                                                   ).one()
+        session['logged_user'] = user.id
         message = {'message': 'HOLA', username: username}
-        return render_template("index2.html"), Response(message, status=200, mimetype='application/json')
+        return render_template("index.html"), Response(message, status=200, mimetype='application/json')
     except Exception:
         message = {'message': 'Registrate'}
         return message, render_template("signup.html")
@@ -211,6 +188,13 @@ def current_user():
             cls=connector.AlchemyEncoder),
             mimetype='application/json'
         )
+
+
+@app.route('/logout', methods = ["GET"])
+def logout():
+    session.clear()
+    return render_template('index.html')
+
 
 
 if __name__ == '__main__':
