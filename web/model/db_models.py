@@ -42,3 +42,10 @@ class Products(connector.Manager.Base):
 	itemImage = Column(String(30), nullable=False)
 	itemPrice = Column(Float(10,2), nullable=False)
 
+class Carito (connector.Manager.Base):
+	__tablename__ = 'Carito'
+	id = Column(Integer, primary_key=True)
+	producto_id = Column(Integer, nullable=False)
+	cantidad = Column(Integer, nullable=False)
+	user_id = Column(Integer, nullable=False)
+

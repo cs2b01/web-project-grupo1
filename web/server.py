@@ -135,6 +135,25 @@ def authenticate_signup():
         return Response(message, status=401, mimetype='application/json')
 
 
+@app.route('/item_send', methods=['POST'])
+def item_send():
+    message = json.loads(request.data)
+    id_producto = message['id_producto']
+    cantidad = message['cantidad']
+    db_session = db.getSession(engine)
+
+    try:
+
+        user = db_session.query(db_models.User
+                                ).filter(db_models.User.username == username
+                                         ).filter(db_models.User.password == password
+                                                  ).one()
+        message = {'message': 'se agrego el producto'}
+        return render_template("shop.html"), Response(message, status=200, mimetype='application/json')
+    except Exception:
+        message = {'message': 'error'}
+        return message, render_template("shop.html")
+
 if __name__ == '__main__':
     app.secret_key = ".."
     app.run(port=5000, threaded=True, host=('127.0.0.1'))
