@@ -143,12 +143,13 @@ def item_send():
     db_session = db.getSession(engine)
 
     try:
-
+    #de aqui
         user = db_session.query(db_models.User
                                 ).filter(db_models.User.username == username
                                          ).filter(db_models.User.password == password
                                                   ).one()
         message = {'message': 'se agrego el producto'}
+    #hasta aqui
         return render_template("shop.html"), Response(message, status=200, mimetype='application/json')
     except Exception:
         message = {'message': 'error'}
