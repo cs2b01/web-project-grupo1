@@ -19,7 +19,7 @@ function postDataSignup(){
             data : register,
             dataType:'json',
             success: function(response){
-               alert(JSON.stringify(response)
+               alert(JSON.stringify(response))
             },
             error: function(response){
                alert(JSON.stringify(response));

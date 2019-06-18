@@ -22,12 +22,8 @@ class Shop(connector.Manager.Base):
 	id = Column(Integer,  Sequence('shop_id_seq'), primary_key=True)
 	country = Column(String(30))
 	city = Column(String(30))
-<<<<<<< HEAD
-	name = Column(String(30), ForeignKey('users.id'))
 	fullname = Column(String(30), ForeignKey('users.id'))
-=======
 	username = Column(String(30), ForeignKey('users.id'))
->>>>>>> master
 	address = Column(String(200), ForeignKey('users.id'))
 	phone = Column(String(20), ForeignKey('users.id'))
 	comment = Column(String(30))
@@ -44,18 +40,10 @@ class Product(connector.Manager.Base):
 	itemPrice = Column(String(30))
 
 class Carito (connector.Manager.Base):
-<<<<<<< HEAD
 	__tablename__ = 'carritos'
 	id = Column(Integer, primary_key=True)
 	id_producto = Column(Integer, nullable=False)
 	cantidad = Column(Integer, nullable=False)
 	username = Column(String(30), ForeignKey('users.id'))
 	name_r = relationship(User, foreign_keys=[username])
-=======
-	__tablename__ = 'Carito'
-	id = Column(Integer, primary_key=True)
-	producto_id = Column(Integer, nullable=False)
-	cantidad = Column(Integer, nullable=False)
-	user_id = Column(Integer, nullable=False)
->>>>>>> master
 

@@ -146,11 +146,11 @@ def create_user():
     address = register['address'],
     phone = register['phone'],
     user = db_models.User(
-    username=username,
-    email = email,
-    password = password,
-    address = address,
-    phone = phone
+        username=username,
+        email = email,
+        password = password,
+        address = address,
+        phone = phone
     )
     db_session = db.getSession(engine)
     db_session.add(user)
@@ -177,7 +177,6 @@ def authenticate():
         return Response(message, status=401, mimetype='application/json')
 
 
-<<<<<<< HEAD
 #@app.route('/item_send', methods=['POST'])
 #def item_send():
  #   message = json.loads(request.data)
@@ -213,7 +212,6 @@ def item_send():
     response = {'message': 'created'}
     return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
 
-=======
 @app.route('/item_send', methods=['POST'])
 def item_send():
     message = json.loads(request.data)
@@ -221,18 +219,7 @@ def item_send():
     cantidad = message['cantidad']
     db_session = db.getSession(engine)
 
-    try:
 
-        user = db_session.query(db_models.User
-                                ).filter(db_models.User.username == username
-                                         ).filter(db_models.User.password == password
-                                                  ).one()
-        message = {'message': 'se agrego el producto'}
-        return render_template("shop.html"), Response(message, status=200, mimetype='application/json')
-    except Exception:
-        message = {'message': 'error'}
-        return message, render_template("shop.html")
->>>>>>> master
 
 if __name__ == '__main__':
     app.secret_key = ".."
