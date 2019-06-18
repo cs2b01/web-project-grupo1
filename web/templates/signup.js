@@ -3,8 +3,8 @@ function postDataSignup(){
         var email = $('#email').val();
         var password = $('#password').val();
         var address = $('#address').val();
-        var address = $('#phone').val();
-        var register = JSON.stringify({
+        var phone = $('#phone').val();
+        var data = JSON.stringify({
                 "username": username,
                 "email": email,
                 "password": password,
@@ -16,10 +16,10 @@ function postDataSignup(){
             url:'/signup',
             type:'POST',
             contentType: 'application/json',
-            data : register,
+            data : data,
             dataType:'json',
             success: function(response){
-               alert(JSON.stringify(response)
+               alert(JSON.stringify(response));
             },
             error: function(response){
                alert(JSON.stringify(response));

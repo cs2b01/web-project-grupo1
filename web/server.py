@@ -3,6 +3,7 @@ from database import connector
 from model import db_models
 import json
 
+
 db = connector.Manager()
 engine = db.createEngine()
 
@@ -82,8 +83,8 @@ def logout():
 
 @app.route('/users', methods = ['GET'])
 def get_users():
-    session = db.getSession(engine)
-    dbResponse = session.query(db_models.User)
+    db_session = db.getSession(engine)
+    dbResponse = db_session.query(db_models.User)
     data = []
     for user in dbResponse:
         data.append(user)
@@ -113,7 +114,7 @@ def get_products():
 @app.route('/create_test_users', methods = ['GET'])
 def create_test_users():
     db_session = db.getSession(engine)
-    user = db_models.User(username="Ale1999", email="ale.20152018@gmail.com", password="1234AA", address="Av. Del Pacifico 180", phone="989989406")
+    user = db_models.User(username="Ale1099", email="ale.20152028@gmail.com", password="1134AA", address="Av. Del Pacifico 20", phone="989989496")
     db_session.add(user)
     db_session.commit()
     return "Test user created!"
@@ -139,12 +140,12 @@ def create_test_products():
 
 @app.route('/signup', methods=['POST'])
 def create_user():
-    register = json.loads(request.data)
-    username = register['username'],
-    email = register['email'],
-    password = register['password'],
-    address = register['address'],
-    phone = register['phone'],
+    data = json.loads(request.data)
+    username = data['username'],
+    email = data['email'],
+    password = data['password'],
+    address = data['address'],
+    phone = data['phone'],
     user = db_models.User(
     username=username,
     email = email,
@@ -152,11 +153,13 @@ def create_user():
     address = address,
     phone = phone
     )
+    #2. Save in database
     db_session = db.getSession(engine)
     db_session.add(user)
     db_session.commit()
-    message = {'user': 'created'}
-    return Response(message, status=200, mimetype='application/json')
+    response = {'user': 'created'}
+    return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
+
 
 @app.route('/authenticate', methods = ["POST"])
 def authenticate():
@@ -176,25 +179,6 @@ def authenticate():
         message = {'message': 'Unauthorized'}
         return Response(message, status=401, mimetype='application/json')
 
-
-@app.route('/item_send', methods=['POST'])
-def item_send():
-    message = json.loads(request.data)
-    id_producto = message['id_producto']
-    cantidad = message['cantidad']
-    db_session = db.getSession(engine)
-
-    try:
-
-        user = db_session.query(db_models.User
-                                ).filter(db_models.User.username == username
-                                         ).filter(db_models.User.password == password
-                                                  ).one()
-        message = {'message': 'se agrego el producto'}
-        return render_template("shop.html"), Response(message, status=200, mimetype='application/json')
-    except Exception:
-        message = {'message': 'error'}
-        return message, render_template("shop.html")
 
 if __name__ == '__main__':
     app.secret_key = ".."
