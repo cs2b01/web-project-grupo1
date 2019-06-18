@@ -38,3 +38,10 @@ class Product(connector.Manager.Base):
 	itemDescription = Column(String(300))
 	itemPrice = Column(String(30))
 
+class Carito (connector.Manager.Base):
+	__tablename__ = 'Carito'
+	id = Column(Integer, primary_key=True)
+	producto_id = Column(Integer, nullable=False)
+	cantidad = Column(Integer, nullable=False)
+	user_id = Column(Integer, nullable=False)
+
