@@ -1,13 +1,10 @@
-function getDataSignup(){
-        $('#fail').hide();
-        $('#ok').hide()
-        $('#loading').show();
+function postDataSignup(){
         var username = $('#username').val();
-         var email = $('#email').val();
+        var email = $('#email').val();
         var password = $('#password').val();
         var address = $('#address').val();
         var address = $('#phone').val();
-        var message = JSON.stringify({
+        var register = JSON.stringify({
                 "username": username,
                 "email": email,
                 "password": password,
@@ -19,41 +16,13 @@ function getDataSignup(){
             url:'/signup',
             type:'POST',
             contentType: 'application/json',
-            data : message,
+            data : register,
             dataType:'json',
             success: function(response){
-                $('#action').html(response['AHORA ERES PARTE DE NUESTRA COMUNIDAD']);
+               alert(JSON.stringify(response)
             },
             error: function(response){
-                if(response['status']==401){
-                    $('#loading').hide();
-                    $('#fail').show()
-                }else{
-                    $('#loading').hide();
-                    $('#ok').show()
-                }
-            }
-        });
-    }
-    function signup_authentication(){
-        $.ajax({
-            url:'/authenticate_signup',
-            type:'POST',
-            contentType: 'application/json',
-            data : message,
-            dataType:'json',
-            success: function(response){
-               $('#action').html(response['statusText']);
-            },
-            error: function(response){
-                 alert(JSON.stringify(response));
-                if(response['status']==401){
-                    $('#loading').hide();
-                    $('#fail').show()
-                }else{
-                    $('#loading').hide();
-                    $('#ok').show()
-                }
+               alert(JSON.stringify(response));
             }
         });
     }
