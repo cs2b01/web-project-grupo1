@@ -135,25 +135,41 @@ def authenticate_signup():
         return Response(message, status=401, mimetype='application/json')
 
 
-@app.route('/item_send', methods=['POST'])
-def item_send():
-    message = json.loads(request.data)
-    id_producto = message['id_producto']
-    cantidad = message['cantidad']
-    db_session = db.getSession(engine)
-
-    try:
-    #de aqui
-        user = db_session.query(db_models.User
-                                ).filter(db_models.User.username == username
-                                         ).filter(db_models.User.password == password
-                                                  ).one()
-        message = {'message': 'se agrego el producto'}
+#@app.route('/item_send', methods=['POST'])
+#def item_send():
+ #   message = json.loads(request.data)
+  #  id_producto = message['id_producto']
+   # cantidad = message['cantidad']
+    #db_session = db.getSession(engine)
+#
+ #   try:
+  #  #de aqui
+   #     user = db_session.query(db_models.User
+    #                        ).filter(db_models.User.username == username
+     #                                    ).filter(db_models.User.password == password
+      #                                            ).one()
+       # message = {'message': 'se agrego el producto'}
     #hasta aqui
-        return render_template("shop.html"), Response(message, status=200, mimetype='application/json')
-    except Exception:
-        message = {'message': 'error'}
-        return message, render_template("shop.html")
+        #return render_template("shop.html"), Response(message, status=200, mimetype='application/json')
+    #except Exception:
+     #   message = {'message': 'error'}
+      #  return message, render_template("shop.html")
+
+app.route('/item_send', methods = ["POST"])
+def item_send():
+    data = json.loads(request.data)
+    id_producto = data['id_producto']
+    cantidad = data['cantidad']
+    carito = db_models.Carito(
+     id_producto = id_producto,
+    cantidad = cantidad)
+    db_session = db.getSession(engine)
+    db_session.add(carito)
+    db_session.commit()
+
+    response = {'message': 'created'}
+    return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.secret_key = ".."
