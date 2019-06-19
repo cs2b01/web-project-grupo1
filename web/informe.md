@@ -15,6 +15,74 @@ Contamos con la posibilidad de registrar tus datos y poder ingresar en cualquier
 
  
 #Explicación Codigo
+##Rutas a los HTML del Servidor
+```python
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/cart')
+def cart():
+    return render_template('cart.html')
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/logout',  methods = ["GET"])
+def logout():
+    session.clear()
+    return render_template('index.html')
+
+
+@app.route('/checkout')
+def checkout():
+    return render_template('checkout.html')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+@app.route('/hot')
+def hot():
+    return render_template('Hot.html')
+
+
+@app.route('/tooth')
+def tooth():
+    return render_template('toothbrush.html')
+
+
+@app.route('/index_log')
+def index_log():
+    return render_template('index_log.html')
+
+
+@app.route('/sports')
+def sports():
+    return render_template('Sports.html')
+
+
+@app.route('/kine')
+def kinesio():
+    return render_template('shop-single.html')
+
+
+@app.route('/thanks')
+def thanks():
+    return render_template('thankyou.html')
+
+
+@app.route('/shop')
+def shop():
+    return render_template('shop.html')
+```
+
 ##Clases
 ###Clase User
 ``` python
