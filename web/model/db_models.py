@@ -22,13 +22,12 @@ class Shop(connector.Manager.Base):
 	id = Column(Integer,  Sequence('shop_id_seq'), primary_key=True)
 	country = Column(String(30))
 	city = Column(String(30))
-	comment = Column(String(30))
-	username = Column(String(30), ForeignKey('users.id'))
-	address = Column(String(200), ForeignKey('users.id'))
-	phone = Column(String(20), ForeignKey('users.id'))
-	username_r = relationship(User, foreign_keys=[username])
-	address_r = relationship(User, foreign_keys=[address])
-	phone_r = relationship(User, foreign_keys=[phone])
+	name = Column(String(30))
+	fullname = Column(String(30))
+	email = Column(String(30))
+	address = Column(String(200))
+	phone = Column(String(20))
+	comment = Column(String(400))
 
 
 class Product(connector.Manager.Base):

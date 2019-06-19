@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, session, Response, redirect
+from flask import Flask,render_template, request, session, Response, redirect, url_for
 from database import connector
 from model import db_models
 import json
@@ -97,16 +97,6 @@ def get_users():
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 
 
-@app.route('/shops', methods = ['GET'])
-def get_shops():
-    session = db.getSession(engine)
-    dbResponse = session.query(db_models.Shop)
-    data = []
-    for shop in dbResponse:
-        data.append(shop)
-    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
-
-
 @app.route('/products', methods = ['GET'])
 def get_products():
     session = db.getSession(engine)
@@ -157,7 +147,7 @@ def signup():
     db_session = db.getSession(engine)
     db_session.add(user)
     db_session.commit()
-    return 'Çreated User'
+    return redirect(url_for('thanks'))
 
 
 @app.route('/authenticate', methods = ["POST"])
@@ -191,7 +181,6 @@ def current_user():
             mimetype='application/json'
         )
 
-######
 @app.route('/meet', methods=['POST'])
 def meet():
     data = json.loads(request.data)
@@ -205,8 +194,7 @@ def meet():
     db_session = db.getSession(engine)
     db_session.add(contact)
     db_session.commit()
-    return render_template('thankyou1.html')
-
+    return redirect(url_for('thanks1'))
 
 @app.route('/contacts', methods = ['GET'])
 def get_contacts():
@@ -216,6 +204,40 @@ def get_contacts():
     for contact in dbResponse:
         data.append(contact)
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+
+
+
+@app.route('/buy_checkout', methods=['POST'])
+def buying():
+    data = json.loads(request.data)
+    shop = db_models.Shop(
+        country=data['country'],
+        city=data['city'],
+        name=data['name'],
+        fullname=data['fullname'],
+        email=data['email'],
+        address=data['address'],
+        phone=data['phone'],
+        comment=data['comment']
+    )
+    db_session = db.getSession(engine)
+    db_session.add(shop)
+    db_session.commit()
+    return 'Çreated Shop'
+
+@app.route('/shops', methods = ['GET'])
+def get_shops():
+    db_session = db.getSession(engine)
+    dbResponse = db_session.query(db_models.Shop)
+    data = []
+    for shop in dbResponse:
+        data.append(shop)
+    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+
+
+
+
+
 
 
 @app.errorhandler(500)

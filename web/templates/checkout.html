@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="../static/css/aos.css">
 
     <link rel="stylesheet" href="../static/css/style.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="checkout.js"></script>
 
   </head>
   <body>
@@ -84,7 +86,7 @@
         <div class="row mb-5">
           <div class="col-md-12">
             <div class="border p-4 rounded" role="alert">
-              Ya tiene un usuario? <a href="/static/login.html">presione aqui</a> para ingresar
+              Ya tiene un usuario? <a href="/templates/login.html">presione aqui</a> para ingresar
             </div>
           </div>
         </div>
@@ -96,9 +98,9 @@
                 <label for="c_country" class="text-black">Pais <span class="text-danger">*</span></label>
                 <select id="c_country" class="form-control">
                   <option value="1">Seleccione su pais </option>
-                  <option value="2">Argentina</option>
-                  <option value="3">Chile</option>
-                    <option value="4">Peru</option>
+                  <option value="2">Peru</option>
+                  <option value="3">Venezuela</option>
+                    <option value="4">Arequipa</option>
                 </select>
               </div>
               <div class="form-group row">
@@ -124,7 +126,7 @@
 
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="c_state_country" class="text-black">Ciudad<span class="text-danger">*</span></label>
+                  <label for="c_state_country" class="text-black">Region<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="c_state_country" name="c_state_country">
                 </div>
               </div>
@@ -175,7 +177,7 @@
                   </table>
 
                   <div class="form-group">
-                    <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='thankyou.html'">Realizar compra</button>
+                    <button class="btn btn-primary btn-lg py-3 btn-block" onclick="pay()">Realizar compra</button>
                   </div>
 
                 </div>
