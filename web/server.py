@@ -80,20 +80,7 @@ def thanks1():
 def shop():
     return render_template('shop.html')
 
-@app.route('/contactinfo', methods = ['POST'])
-def info():
-    d = json.loads(request.form['values'])
-    contacts = entities.User(
-        name=d['c_fname'],
-        lastname=d['c_lname'],
-        email=d['c_email'],
-        subject=d['c_subject'],
-        message=d['c_message']
-    )
-    session = db.getSession(engine)
-    session.add(contacts)
-    session.commit()
-    return 'Created User'
+
 
 @app.route('/static/<content>')
 def static_content(content):
@@ -175,9 +162,9 @@ def signup():
 
 @app.route('/authenticate', methods = ["POST"])
 def authenticate():
-    message = json.loads(request.data)
-    username = message['username']
-    password = message['password']
+    data = json.loads(request.data)
+    username = data['username']
+    password = data['password']
     db_session = db.getSession(engine)
     try:
         user = db_session.query(db_models.User

@@ -4,7 +4,7 @@ function getData(){
 
         var username = $('#username').val();
         var password = $('#password').val();
-        var message = JSON.stringify({
+        var data = JSON.stringify({
                 "username": username,
                 "password": password
             });
@@ -13,7 +13,7 @@ function getData(){
             url:'/authenticate',
             type:'POST',
             contentType: 'application/json',
-            data : message,
+            data : data,
             dataType:'json',
             success: function(response){
                 //$('#action').html(response['statusText']);

@@ -405,6 +405,8 @@ $(function(){
         },],
     }).dxDataGrid("instance");
 });
+
+
 ```
 
 ## Dificultades al momento de realizar el Proyecto.
