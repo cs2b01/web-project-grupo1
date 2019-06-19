@@ -41,7 +41,7 @@ class Product(connector.Manager.Base):
 
 class Carito (connector.Manager.Base):
 	__tablename__ = 'caritos'
-	id = Column(Integer, primary_key=True)
+	id = Column(Integer,Sequence('caritos_id_seq'), primary_key=True)
 	id_producto = Column(Integer, nullable=False)
 	cantidad = Column(Integer, nullable=False)
 	username = Column(String(30), ForeignKey('users.id'))

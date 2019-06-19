@@ -1,5 +1,5 @@
 function item_send(){
-$.ajax({
+
         var id_producto = $('#id_producto').val();
         var cantidad = $('#cantidad').val();
         var data = JSON.stringify({
@@ -7,7 +7,7 @@ $.ajax({
                 "cantidad": cantidad
             });
 
-
+$.ajax({
             url:'/item_send',
             type:'POST',
             contentType: 'application/json',
