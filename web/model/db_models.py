@@ -38,10 +38,12 @@ class Product(connector.Manager.Base):
 	itemDescription = Column(String(300))
 	itemPrice = Column(String(30))
 
+
 class Carito (connector.Manager.Base):
-	__tablename__ = 'Carito'
+	__tablename__ = 'caritos'
 	id = Column(Integer, primary_key=True)
-	producto_id = Column(Integer, nullable=False)
+	id_producto = Column(Integer, nullable=False)
 	cantidad = Column(Integer, nullable=False)
-	user_id = Column(Integer, nullable=False)
+	username = Column(String(30), ForeignKey('users.id'))
+	name_r = relationship(User, foreign_keys=[username])
 

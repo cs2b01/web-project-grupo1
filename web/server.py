@@ -190,6 +190,30 @@ def current_user():
 def page_not_found(e):
     return render_template('500.html'), 500
 
+@app.route('/item_send', methods = ["POST"])
+def item_send():
+    data = json.loads(request.data)
+    carito = db_models.Carito(
+    id_producto=data['id_producto'],
+    cantidad = data['cantidad'])
+    db_session = db.getSession(engine)
+    db_session.add(carito)
+    db_session.commit()
+
+    response = {'message': 'created'}
+    return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
+
+
+@app.route('/caritos', methods = ['GET'])
+def get_caritos():
+    db_session = db.getSession(engine)
+    dbResponse = db_session.query(db_models.Carito)
+    data = []
+    for carito in dbResponse:
+        data.append(carito)
+    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+
+
 if __name__ == '__main__':
     app.secret_key = ".."
     app.run(port=5000, threaded=True, host=('127.0.0.1'))
