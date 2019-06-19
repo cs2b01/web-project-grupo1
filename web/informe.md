@@ -122,8 +122,8 @@ function postDataSignup(){
         var email = $('#email').val();
         var password = $('#password').val();
         var address = $('#address').val();
-        var address = $('#phone').val();
-        var register = JSON.stringify({
+        var phone = $('#phone').val();
+        var data = JSON.stringify({
                 "username": username,
                 "email": email,
                 "password": password,
@@ -135,10 +135,10 @@ function postDataSignup(){
             url:'/signup',
             type:'POST',
             contentType: 'application/json',
-            data : register,
+            data : data,
             dataType:'json',
             success: function(response){
-               alert(JSON.stringify(response)
+               alert(JSON.stringify(response));
             },
             error: function(response){
                alert(JSON.stringify(response));
@@ -215,6 +215,129 @@ Esta función comprueba si el usuario y contraseña ingresados por el cliente se
     </table>
 ```
 Este html muestra el formulario para hacer el Login.
+
+## Contacto
+##HTML formulario Contacto
+``` html
+           <form id= "contact" name="contact" action="{{url_for('contact')}}" method="POST" class="item-3" onsubmit="return upload(); return false;">
+             <div class="p-3 p-lg-5 border">
+
+                <section>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="c_fname" class="text-black">Nombre <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_fname" name="c_fname">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_lname" name="c_lname">
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="c_email" class="text-black">Email <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="c_email" name="c_email" placeholder="">
+                  </div>
+                </div>
+                </section>
+
+                <section>
+                    <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="c_subject" class="text-black">Tema </label>
+                    <input type="text" class="form-control" id="c_subject" name="c_subject">
+                  </div>
+                </div>
+               </section>
+
+
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="c_message" class="text-black">Mensaje </label>
+                    <textarea name="c_message" id="c_message" cols="30" rows="7" class="form-control"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-lg-12">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar Mensaje">
+                  </div>
+                </div>
+              </div>
+           </form>
+  ```
+###HTML script Contacto
+``` html
+<script>
+    // validation of user data
+    var name = document.forms["contact"]["c_fname"];
+    var lastname = document.forms["contact"]["c_lname"];
+    var mail = document.forms["contact"]["c_email"];
+    var subject = document.forms["contact"]["c_subject"];
+    var message = document.forms["contact"]["c_message"];
+
+    name.addEventListener("blur", validate);
+    lastname.addEventListener("blur", validate);
+    mail.addEventListener("blur", validate);
+    subject.addEventListener("blur", validate);
+    message.addEventListener("blur", validate);f
+
+</script>
+```
+###Javascript Contacto
+``` javascript
+$(function(){
+    var url = "http://127.0.0.1:5000/users";
+
+
+    $("#grid").dxDataGrid({
+        dataSource: DevExpress.data.AspNet.createStore({
+            key: "id",
+            loadUrl: url ,
+            insertUrl: url ,
+            updateUrl: url ,
+            deleteUrl: url ,
+            onBeforeSend: function(method, ajaxOptions) {
+                ajaxOptions.xhrFields = { withCredentials: true };
+            }
+        }),
+        editing: {
+            allowUpdating: true,
+            allowDeleting: true,
+            allowAdding: true
+        },
+        remoteOperations: {
+            sorting: true,
+            paging: true
+        },
+        paging: {
+            pageSize: 12
+        },
+        pager: {
+            showPageSizeSelector: true,
+            allowedPageSizes: [8, 12, 20]
+        },
+        columns: [{
+            dataField: "id",
+            dataType: "number",
+            allowEditing: false
+        }, {
+            dataField: "c_fname"
+        }, {
+            dataField: "c_lname"
+        }, {
+            dataField: "c_email"
+        }, {
+            dataField: "c_subject"
+
+        }, {
+            dataField: "c_message"
+        },],
+    }).dxDataGrid("instance");
+});
+```
 
 
 ## Dificultades al momento de realizar el Proyecto.
