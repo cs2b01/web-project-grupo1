@@ -49,11 +49,10 @@ class Contact(connector.Manager.Base):
 	message = Column(String(300))
 
 
+
 class Carito (connector.Manager.Base):
 	__tablename__ = 'caritos'
-	id = Column(Integer,Sequence('caritos_id_seq'), primary_key=True)
+	id = Column(Integer, Sequence('caritos_id_seq'), primary_key=True)
 	id_producto = Column(Integer, nullable=False)
 	cantidad = Column(Integer, nullable=False)
-	username = Column(String(30), ForeignKey('users.id'))
-	username_r = relationship(User, foreign_keys=[username])
-
+	username = Column(String)

@@ -240,11 +240,13 @@ def page_not_found(e):
 def item_send():
     data = json.loads(request.data)
     carito = db_models.Carito(
-    id_producto=data['id_producto'],
-    cantidad = data['cantidad'])
+        id_producto=data['id_producto'],
+        cantidad=data['cantidad'],
+        username=data['username'])
     db_session = db.getSession(engine)
     db_session.add(carito)
     db_session.commit()
+
     response = {'message': 'created'}
     return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
 
