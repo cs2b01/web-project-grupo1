@@ -14,20 +14,116 @@ Contamos con la posibilidad de registrar tus datos y poder ingresar en cualquier
 * Julio Bonifaz
 
  
-## Explicación Codigo
+#Explicación Codigo
+##Clases
+###Clase User
+``` python
+class User(connector.Manager.Base):
+	__tablename__ = 'users'
 
-#### Funcion getData para SignUp
+	id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+	username = Column(String(20))
+	email = Column(String(120))
+	password = Column(String(60))
+	address = Column(String(200))
+	phone = Column(String(20))
+```
+Se crea la base de datos User para el SignUp y Login.
+
+###Clase Shop
+``` python
+class Shop(connector.Manager.Base):
+	__tablename__ = 'shops'
+
+	id = Column(Integer,  Sequence('shop_id_seq'), primary_key=True)
+	country = Column(String(30))
+	city = Column(String(30))
+	username = Column(String(30), ForeignKey('users.id'))
+	address = Column(String(200), ForeignKey('users.id'))
+	phone = Column(String(20), ForeignKey('users.id'))
+	comment = Column(String(30))
+	username_r = relationship(User, foreign_keys=[username])
+	address_r = relationship(User, foreign_keys=[address])
+	phone_r = relationship(User, foreign_keys=[phone])
+
+```
+Se crea la base de datos a traves del ORM con todos los datos del cliente para el momento de compra del producto.
+
+###Clase Product
+``` python
+class Product(connector.Manager.Base):
+	__tablename__ = 'products'
+	id = Column(Integer,  Sequence('product_id_seq'), primary_key=True)
+	itemName = Column(String(50))
+	itemDescription = Column(String(300))
+	itemPrice = Column(String(30))
+```
+Creación de Base de Datos del Producto a traves del ORM.
+
+###Clase Carrito
+``` python
+class Carito (connector.Manager.Base):
+	__tablename__ = 'Carito'
+	id = Column(Integer, primary_key=True)
+	producto_id = Column(Integer, nullable=False)
+	cantidad = Column(Integer, nullable=False)
+	user_id = Column(Integer, nullable=False)
+```
+Creación de Base de Datos del Carrito a traves del ORM.
+
+
+##Funcionamiento SignUp/Login
+### Formulario Sign Up
+``` html
+ <table style="margin: 0 auto;">
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="username" id="username"/></td>
+        </tr>
+         <tr>
+            <td>Email</td>
+            <td><input type="text" name="email" id="email"/></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password" id="password" /></td>
+        </tr>
+         <tr>
+            <td>Address</td>
+            <td><input type="text" name="address" id="address" /></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td><input type="text" name="phone" id="phone" /></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="button" value="login" onclick="getData()"/>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <div id="action"></div>
+
+            </td>
+        </tr>
+    </table>
+  ```
+  
+  Este codigo representa el formulario creado en el html para el SignUp.
+
+
+###Funcion PostData para el SignUp
+
 ``` javascript
-function getData(){
-        $('#fail').hide();
-        $('#ok').hide()
-        $('#loading').show();
+function postDataSignup(){
         var username = $('#username').val();
-         var email = $('#email').val();
+        var email = $('#email').val();
         var password = $('#password').val();
         var address = $('#address').val();
         var address = $('#phone').val();
-        var message = JSON.stringify({
+        var register = JSON.stringify({
                 "username": username,
                 "email": email,
                 "password": password,
@@ -39,28 +135,22 @@ function getData(){
             url:'/signup',
             type:'POST',
             contentType: 'application/json',
-            data : message,
+            data : register,
             dataType:'json',
             success: function(response){
-                $('#action').html(response['AHORA ERES PARTE DE NUESTRA COMUNIDAD']);
+               alert(JSON.stringify(response)
             },
             error: function(response){
-                if(response['status']==401){
-                    $('#loading').hide();
-                    $('#fail').show()
-                }else{
-                    $('#loading').hide();
-                    $('#ok').show()
-                }
+               alert(JSON.stringify(response));
             }
         });
     }
-```
+   ```
+ Este JavaScript crea la relación Cliente-Servidor para el proceso de recolección de datos del cliente al momento de registrarse.
+    
 
-Esta función recoge todos los valores ingresados por el cliente al momento de hacer el SignUp, los convierte en un STRING en formato JSON, haciendo posible al servidor recibir esta informacion y almacenarla para luego poder ingresar a la plataforma e ingresar sin necesidad de registrarse nuevamente.
 
-
-#Funcion getData para el Login
+###Funcion getData para el Login
 
 ``` javascript
 function getData(){
@@ -100,33 +190,7 @@ function getData(){
 Esta función comprueba si el usuario y contraseña ingresados por el cliente se encuentran en la base de datos a traves de la función **Authenticate**. El servidor comprueba si es que existen y luego manda una respuesta('Success' o 'Error').
 
 
-#### Función Authenticate SignUp
-``` python
-def authenticate_signup():
-    message = json.loads(request.data)
-    username = message['username']
-    password = message['password']
-    email = message ['email'],
-    address = message['address'],
-    phone = message['phone']
-    db_session = db.getSession(engine)
-
-    try:
-        user = db_session.query(db_models.User).filter(db_models.User.username == username
-                                 ).filter(db_models.User.password == password
-                                ).filter(db_models.User.email == email
-                                         ).filter(db_models.User.address == address
-                                                  ).filter(db_models.User.phone == phone
-                                                           ).one()
-        session['logged_user'] = user.id
-        message = {'message': 'USTED YA ESTA REGISTRADO'}
-        return render_template("login.html")
-
-    except Exception:
-        message = {'message': 'GRACIAS'}
-        return Response(status=200, mimetype='application/json')
-```
-# Formulario LOGIN 
+### Formulario Login 
 ``` html
 <table style="margin: 0 auto;">
         <tr>
@@ -150,44 +214,8 @@ def authenticate_signup():
         </tr>
     </table>
 ```
+Este html muestra el formulario para hacer el Login.
 
-# Formulario Sign Up
-``` html
- <table style="margin: 0 auto;">
-        <tr>
-            <td>Username</td>
-            <td><input type="text" name="username" id="username"/></td>
-        </tr>
-         <tr>
-            <td>Email</td>
-            <td><input type="text" name="email" id="email"/></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="password" id="password" /></td>
-        </tr>
-         <tr>
-            <td>Address</td>
-            <td><input type="text" name="address" id="address" /></td>
-        </tr>
-        <tr>
-            <td>Phone</td>
-            <td><input type="text" name="phone" id="phone" /></td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <input type="button" value="login" onclick="getData()"/>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <div id="action"></div>
-
-            </td>
-        </tr>
-    </table>
-  ```
 
 ## Dificultades al momento de realizar el Proyecto.
 * Crear la manera de almacenar información en el servidor propuesta por el cliente. Es decir hacer la conexión Server-Html-JavaScript para que el servidor pueda recibir la información.
