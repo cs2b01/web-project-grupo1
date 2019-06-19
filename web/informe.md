@@ -407,7 +407,6 @@ $(function(){
 });
 ```
 
-
 ## Dificultades al momento de realizar el Proyecto.
 * Crear la manera de almacenar información en el servidor propuesta por el cliente. Es decir hacer la conexión Server-Html-JavaScript para que el servidor pueda recibir la información.
 * Encontrar una buena plantilla HTML de estilo E-Commerce que cuente con los estilos, fuentes e iconos necesarios para poder tener una plataforma web con el proposito de **venta de productos**.
