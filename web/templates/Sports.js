@@ -1,23 +1,23 @@
-function item_send (){
-$.ajax({
+function item_send(){
+
         var id_producto = $('#id_producto').val();
         var cantidad = $('#cantidad').val();
-        var message = JSON.stringify({
+        var data = JSON.stringify({
                 "id_producto": id_producto,
                 "cantidad": cantidad
             });
 
-
+$.ajax({
             url:'/item_send',
             type:'POST',
             contentType: 'application/json',
-            data : message,
+            data : data,
             dataType:'json',
             success: function(response){
-                //$('#action').html(response['statusText']);
+                $('#action').html(response['statusText']);
             },
             error: function(response){
-                //alert(JSON.stringify(response));
+                alert(JSON.stringify(response));
                 if(response['status']==401){
                     $('#loading').hide();
                     $('#fail').show()

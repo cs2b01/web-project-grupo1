@@ -1,49 +1,73 @@
-$(function(){
-    var url = "http://127.0.0.1:5000/users";
+function putContact(){
+        $('#fail').hide();
+        $('#ok').hide()
+        var name = $('#c_fname').val();
+        var fullname = $('#c_lname').val();
+        var email = $('#c_email').val();
+        var subject = $('#c_subject').val();
+        var message = $('#c_message').val();
+        var data = JSON.stringify({
+                "name": name,
+                "fullname": fullname,
+                "email": email,
+                "subject": subject,
+                "message": message
+            });
 
-
-    $("#grid").dxDataGrid({
-        dataSource: DevExpress.data.AspNet.createStore({
-            key: "id",
-            loadUrl: url ,
-            insertUrl: url ,
-            updateUrl: url ,
-            deleteUrl: url ,
-            onBeforeSend: function(method, ajaxOptions) {
-                ajaxOptions.xhrFields = { withCredentials: true };
+        $.ajax({
+            url:'/meet',
+            type:'POST',
+            contentType: 'application/json',
+            data : data,
+            dataType:'json',
+            success: function(response){
+               //alert(JSON.stringify(response));
+            },
+            error: function(response){
+              // alert(JSON.stringify(response));
+              if(response['status']==401){
+                    $('#fail').show()
+                }
+                else{
+                    $('#ok').show()
+                }
             }
-        }),
-        editing: {
-            allowUpdating: true,
-            allowDeleting: true,
-            allowAdding: true
-        },
-        remoteOperations: {
-            sorting: true,
-            paging: true
-        },
-        paging: {
-            pageSize: 12
-        },
-        pager: {
-            showPageSizeSelector: true,
-            allowedPageSizes: [8, 12, 20]
-        },
-        columns: [{
-            dataField: "id",
-            dataType: "number",
-            allowEditing: false
-        }, {
-            dataField: "c_fname"
-        }, {
-            dataField: "c_lname"
-        }, {
-            dataField: "c_email"
-        }, {
-            dataField: "c_subject"
+        });
+    }
 
-        }, {
-            dataField: "c_message"
-        },],
-    }).dxDataGrid("instance");
-});
+
+function putContact(){
+        $('#fail').hide();
+        $('#ok').hide()
+        var name = $('#c_fname').val();
+        var fullname = $('#c_lname').val();
+        var email = $('#c_email').val();
+        var subject = $('#c_subject').val();
+        var message = $('#c_message').val();
+        var data = JSON.stringify({
+                "name": name,
+                "fullname": fullname,
+                "email": email,
+                "subject": subject,
+                "message": message
+            });
+
+        $.ajax({
+            url:'/meet',
+            type:'POST',
+            contentType: 'application/json',
+            data : data,
+            dataType:'json',
+            success: function(response){
+               //==alert(JSON.stringify(response));
+            },
+            error: function(response){
+              // alert(JSON.stringify(response));
+              if(response['status']==401){
+                    $('#fail').show()
+                } else{
+                    $('#ok').show()
+                }
+            }
+        });
+    }

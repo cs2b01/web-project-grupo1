@@ -38,10 +38,22 @@ class Product(connector.Manager.Base):
 	itemDescription = Column(String(300))
 	itemPrice = Column(String(30))
 
+
+class Contact(connector.Manager.Base):
+	__tablename__ = 'contacts'
+	id = Column(Integer, Sequence('contact_id_seq'), primary_key=True)
+	name = Column(String(50))
+	fullname = Column(String(50))
+	email = Column(String(100))
+	subject = Column(String(300))
+	message = Column(String(300))
+
+
 class Carito (connector.Manager.Base):
-	__tablename__ = 'Carito'
-	id = Column(Integer, primary_key=True)
-	producto_id = Column(Integer, nullable=False)
+	__tablename__ = 'caritos'
+	id = Column(Integer,Sequence('caritos_id_seq'), primary_key=True)
+	id_producto = Column(Integer, nullable=False)
 	cantidad = Column(Integer, nullable=False)
-	user_id = Column(Integer, nullable=False)
+	username = Column(String(30), ForeignKey('users.id'))
+	username_r = relationship(User, foreign_keys=[username])
 

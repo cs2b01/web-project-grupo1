@@ -18,10 +18,12 @@
     <link rel="stylesheet" href="../static/css/aos.css">
 
     <link rel="stylesheet" href="../static/css/style.css">
+    <script src="Sports.js"></script>
 
   </head>
+  <body>
   <input>
-  <input type="hidden" id="id_producto" value="1"/>
+
   <div class="site-wrap">
     <header class="site-navbar" role="banner">
       <div class="site-navbar-top">
@@ -103,14 +105,15 @@ El kinesiotapping, optimiza el proceso de recuperación de lesiones en el propio
               <div class="input-group-prepend">
                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
               </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" id="cantidad">
+              <input type="text" name="cantidad" value="1" id="cantidad">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
               </div>
             </div>
 
             </div>
-            <p><a href="/static/cart.html" class="buy-now btn btn-sm btn-primary">Añadir al carrito</a></p>
+            <input type="hidden" id="id_producto" value="1"/>
+            <input type="button" value="añadir carrito" onclick="item_send()"/>
 
           </div>
         </div>

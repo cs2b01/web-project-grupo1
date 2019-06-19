@@ -1,4 +1,7 @@
 function postDataSignup(){
+        $('#fail').hide();
+        $('#ok').hide()
+        $('#loading').show();
         var username = $('#username').val();
         var email = $('#email').val();
         var password = $('#password').val();
@@ -19,10 +22,18 @@ function postDataSignup(){
             data : data,
             dataType:'json',
             success: function(response){
-               alert(JSON.stringify(response));
+               //alert(JSON.stringify(response));
             },
             error: function(response){
-               alert(JSON.stringify(response));
+             if(response['status']==401){
+                    $('#loading').hide();
+                    $('#fail').show()
+                }else{
+                    $('#loading').hide();
+                    $('#ok').show()
+                }
+              // alert(JSON.stringify(response));
+
             }
         });
     }

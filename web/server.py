@@ -71,6 +71,11 @@ def thanks():
     return render_template('thankyou.html')
 
 
+@app.route('/thanks1')
+def thanks1():
+    return render_template('thankyou1.html')
+
+
 @app.route('/shop')
 def shop():
     return render_template('shop.html')
@@ -185,10 +190,60 @@ def current_user():
             mimetype='application/json'
         )
 
+######
+@app.route('/meet', methods=['POST'])
+def meet():
+    data = json.loads(request.data)
+    contact = db_models.Contact(
+        name=data['name'],
+        fullname=data['fullname'],
+        email=data['email'],
+        subject=data['subject'],
+        message=data['message']
+    )
+    db_session = db.getSession(engine)
+    db_session.add(contact)
+    db_session.commit()
+    return render_template('thankyou1.html')
+
+
+@app.route('/contacts', methods = ['GET'])
+def get_contacts():
+    db_session = db.getSession(engine)
+    dbResponse = db_session.query(db_models.Contact)
+    data = []
+    for contact in dbResponse:
+        data.append(contact)
+    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+
 
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template('500.html'), 500
+
+
+@app.route('/item_send', methods = ["POST"])
+def item_send():
+    data = json.loads(request.data)
+    carito = db_models.Carito(
+    id_producto=data['id_producto'],
+    cantidad = data['cantidad'])
+    db_session = db.getSession(engine)
+    db_session.add(carito)
+    db_session.commit()
+    response = {'message': 'created'}
+    return Response(json.dumps(response, cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
+
+
+@app.route('/caritos', methods = ['GET'])
+def get_caritos():
+    db_session = db.getSession(engine)
+    dbResponse = db_session.query(db_models.Carito)
+    data = []
+    for carito in dbResponse:
+        data.append(carito)
+    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.secret_key = ".."

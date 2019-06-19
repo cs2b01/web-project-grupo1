@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="../static/css/aos.css">
 
     <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="contact.js"></script>
     
   </head>
   <body>
@@ -77,8 +79,7 @@
           <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Contact</strong></div>
         </div>
       </div>
-    </div>  
-
+    </div>
     <div class="site-section">
       <div class="container">
         <div class="row">
@@ -86,46 +87,42 @@
             <h2 class="h3 mb-3 text-black">Escribenos</h2>
           </div>
           <div class="col-md-7">
-
-            <form action="#" method="post">
-              
               <div class="p-3 p-lg-5 border">
-                <div class="form-group row">
+                <div class="row">
                   <div class="col-md-6">
                     <label for="c_fname" class="text-black">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_fname" name="c_fname">
+                    <input type="text"  class="form-control"  id="c_fname" name="c_fname">
                   </div>
                   <div class="col-md-6">
                     <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_lname" name="c_lname">
+                    <input type="text" class="form-control"   id="c_lname" name="c_lname">
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class=" form-group row">
                   <div class="col-md-12">
                     <label for="c_email" class="text-black">Email <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="c_email" name="c_email" placeholder="">
+                    <input type="email"  class="form-control" id="c_email" name="c_email" placeholder="">
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class=" form-group row">
                   <div class="col-md-12">
                     <label for="c_subject" class="text-black">Tema </label>
-                    <input type="text" class="form-control" id="c_subject" name="c_subject">
+                    <input type="text"  class="form-control" id="c_subject" name="c_subject">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-md-12">
                     <label for="c_message" class="text-black">Mensaje </label>
-                    <textarea name="c_message" id="c_message" cols="30" rows="7" class="form-control"></textarea>
+                    <textarea  name="c_message" id="c_message" cols="30" rows="7" class="form-control"></textarea>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-lg-12">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar Mensaje">
+                    <input type="button" class="btn btn-primary btn-lg btn-block" value="Enviar Mensaje"  onclick="putContact()">
                   </div>
                 </div>
               </div>
-            </form>
           </div>
         </div>
       </div>
@@ -161,7 +158,11 @@
       </div>
     </footer>
   </div>
-
+  <div id="action">
+        <img id="loading" src="/static/images/loading.gif" style="display:none" />
+        <img id="ok" src="/static/images/ok.png" style="display:none" />
+        <img id="fail"  src="/static/images/fail.png" style="display:none" />
+  </div>
   <script src="../static/js/jquery-3.3.1.min.js"></script>
   <script src="../static/js/jquery-ui.js"></script>
   <script src="../static/js/popper.min.js"></script>
@@ -171,6 +172,6 @@
   <script src="../static/js/aos.js"></script>
 
   <script src="../static/js/main.js"></script>
-    
+
   </body>
 </html>

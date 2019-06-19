@@ -1,7 +1,7 @@
 function getData(){
-        $('#fail').hide();
-        $('#ok').hide()
-        $('#loading').show();
+        $('#try').hide();
+        $('#HOLA').hide()
+
         var username = $('#username').val();
         var password = $('#password').val();
         var message = JSON.stringify({
@@ -21,11 +21,11 @@ function getData(){
             error: function(response){
                 //alert(JSON.stringify(response));
                 if(response['status']==401){
-                    $('#loading').hide();
-                    $('#fail').show()
+
+                    $('#try').show()
                 }else{
-                    $('#loading').hide();
-                    $('#ok').show()
+
+                    $('#HOLA').show()
                 }
             }
         });
