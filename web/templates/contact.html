@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>AWQAQ</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,12 +18,16 @@
     <link rel="stylesheet" href="../static/css/aos.css">
 
     <link rel="stylesheet" href="../static/css/style.css">
+<<<<<<< HEAD
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="contact.js"></script>
     
+=======
+
+>>>>>>> 26e5075d591386d586e614b86542e40c549b57be
   </head>
   <body>
-  
+
   <div class="site-wrap">
    <header class="site-navbar" role="banner">
       <div class="site-navbar-top">
@@ -36,7 +40,7 @@
             <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
               <div class="site-logo">
 
-                <a href="/static/index.html" class="js-logo-clone">Proyecto</a>
+                <a href="/static/index.html" class="js-logo-clone">AWQAQ</a>
 
               </div>
             </div>
@@ -87,6 +91,7 @@
             <h2 class="h3 mb-3 text-black">Escribenos</h2>
           </div>
           <div class="col-md-7">
+<<<<<<< HEAD
               <div class="p-3 p-lg-5 border">
                 <div class="row">
                   <div class="col-md-6">
@@ -99,17 +104,47 @@
                   </div>
                 </div>
                 <div class=" form-group row">
+=======
+
+            <form id= "contact" name="contact" action="{{url_for('contact')}}" method="POST" class="item-3" onsubmit="return upload(); return false;">
+              <div class="p-3 p-lg-5 border">
+
+                <section>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="c_fname" class="text-black">Nombre <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_fname" name="c_fname">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_lname" name="c_lname">
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                <div class="form-group row">
+>>>>>>> 26e5075d591386d586e614b86542e40c549b57be
                   <div class="col-md-12">
                     <label for="c_email" class="text-black">Email <span class="text-danger">*</span></label>
                     <input type="email"  class="form-control" id="c_email" name="c_email" placeholder="">
                   </div>
                 </div>
+<<<<<<< HEAD
                 <div class=" form-group row">
+=======
+                </section>
+
+                <section>
+                    <div class="form-group row">
+>>>>>>> 26e5075d591386d586e614b86542e40c549b57be
                   <div class="col-md-12">
                     <label for="c_subject" class="text-black">Tema </label>
                     <input type="text"  class="form-control" id="c_subject" name="c_subject">
                   </div>
                 </div>
+               </section>
+
 
                 <div class="form-group row">
                   <div class="col-md-12">
@@ -127,6 +162,22 @@
         </div>
       </div>
     </div>
+
+      <script>
+    // validation of user data
+    var name = document.forms["contact"]["c_fname"];
+    var lastname = document.forms["contact"]["c_lname"];
+    var mail = document.forms["contact"]["c_email"];
+    var subject = document.forms["contact"]["c_subject"];
+    var message = document.forms["contact"]["c_message"];
+
+    name.addEventListener("blur", validate);
+    lastname.addEventListener("blur", validate);
+    mail.addEventListener("blur", validate);
+    subject.addEventListener("blur", validate);
+    message.addEventListener("blur", validate);f
+
+</script>
 
     <footer class="site-footer border-top">
       <div class="container">
